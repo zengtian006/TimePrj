@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Time Prj</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_address">Address</string>
+    <string name="nav_item_message">Messages</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_address</item>
+        <item>@string/nav_item_message</item>
+    </string-array>
+
+    <string name="title_messages">Messages</string>
+    <string name="title_friend">Friend</string>
+    <string name="title_home">Trading  Platform</string>
+
+    <string name="buy">BUY</string>
+    <string name="share">SHARE</string>
+    <string name="sell">SELL</string>
+
+    <string name="btn_link_to_register">Not Registered?  <u>Sign up</u> now.</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_sign_up">Register</string>
+    <string name="btn_verify">Next</string>
+    <string name="btn_confirm">Verify</string>
+    <string name="btn_link_to_login">Already Registered! <u>Login</u>.</string>
+
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Full Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone">Mobile</string>
+    <string name="hint_verify_code">Verification Code</string>
+
+    <string name="login_name">Mobile number</string>
+    <string name="err_msg_name">Enter your phone number or email</string>
+    <string name="err_msg_name_only">Enter your full name</string>
+    <string name="err_msg_password">Enter the password</string>
+    <string name="err_msg_password_mismatch">Password confirmation does not match password !</string>
+    <string name="err_msg_phone">Enter your phone number</string>
+
+    <string name="action_login">Login</string>
+    <string name="action_signup">Sign up</string>
+
+    <string name="title_signup_phone">Sign Up with Phone</string>
+
+</resources>

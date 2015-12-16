@@ -67,11 +67,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 startActivity(new Intent(MainActivity.this, MeActivity.class));
             }
         });
-//        drawerFragment = (FragmentDrawer)
-//                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-//        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-//        drawerFragment.setDrawerListener(this);
-
         session = new SessionManager(getApplicationContext());
         if (!session.isLoggedIn()) {
             displayView(3);
@@ -156,27 +151,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            if (doubleBackToExitPressedOnce) {
-                super.onBackPressed();
-                return;
-            }
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
-        }
-    }
 
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
@@ -205,5 +179,27 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         Log.v(TAG, "title: " + item.getTitle());
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 }

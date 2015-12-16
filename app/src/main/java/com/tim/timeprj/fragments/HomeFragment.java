@@ -17,13 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tim.timeprj.R;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tim.timeprj.R;
-import com.tim.timeprj.fragments.BuyFragment;
-import com.tim.timeprj.fragments.SellFragment;
-import com.tim.timeprj.fragments.ShareFragment;
 
 
 public class HomeFragment extends Fragment {

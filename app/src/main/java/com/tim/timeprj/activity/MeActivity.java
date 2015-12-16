@@ -1,7 +1,6 @@
 package com.tim.timeprj.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tim.timeprj.R;
-import com.tim.timeprj.helper.SessionManager;
 
 
 /**

@@ -3,17 +3,14 @@ package com.tim.timeprj.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.tim.timeprj.R;
 import com.tim.timeprj.fragments.SignupPhone1Fragment;
 import com.tim.timeprj.fragments.SignupPhone2Fragment;
-
 
 /**
  * Created by Zeng on 2015/11/3.

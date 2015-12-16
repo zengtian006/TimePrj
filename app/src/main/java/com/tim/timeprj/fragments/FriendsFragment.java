@@ -1,8 +1,6 @@
 package com.tim.timeprj.fragments;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.gms.test.datetimepicker.time.RadialPickerLayout;
 import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
-import com.tim.timeprj.activity.MainActivity;
 
 import java.util.Calendar;
 

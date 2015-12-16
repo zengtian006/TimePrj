@@ -1,6 +1,8 @@
 package com.tim.timeprj.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +34,7 @@ import com.tim.timeprj.helper.SessionManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, NavigationView.OnNavigationItemSelectedListener {
     private static String TAG = MainActivity.class.getSimpleName();
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     boolean doubleBackToExitPressedOnce = false;
     private static SessionManager session;
     NavigationView navigationView;
+    Locale myLocale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +113,14 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Locale currentLocale = getResources().getConfiguration().locale;
+            Log.v(TAG, "default: " + currentLocale.toString());
+            if (currentLocale.toString().equals("en_US")) {
+                myLocale = new Locale("zh", "CN");
+            } else {
+                myLocale = Locale.getDefault();
+            }
+            setLocale(myLocale);
             return true;
         }
 //        if (id == R.id.action_search) {
@@ -115,6 +128,18 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setLocale(Locale lang) {
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = lang;
+        Log.v(TAG, "lang: " + lang.toString());
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, MainActivity.class);
+        refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(refresh);
     }
 
     private void displayView(int position) {

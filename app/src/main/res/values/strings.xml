@@ -5,13 +5,13 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_home">Home</string>
-    <string name="nav_item_helper">Helper</string>
-    <string name="nav_item_message">Messages</string>
+    <string name="nav_item_home">My Schedule</string>
+    <string name="nav_item_helper">Find Helper</string>
+    <string name="nav_item_message">My Messages</string>
 
-    <string name="title_messages">Messages</string>
-    <string name="title_home">Home</string>
-    <string name="title_helper">Helper</string>
+    <string name="title_home">My Schedule</string>
+    <string name="title_messages">My Messages</string>
+    <string name="title_helper">Find Helper</string>
 
     <string name="buy">BUY</string>
     <string name="share">SHARE</string>
@@ -39,6 +39,7 @@
 
     <string name="action_login">Login</string>
     <string name="action_signup">Sign up</string>
+    <string name="text_or">or</string>
 
     <string name="title_signup_phone">Sign Up with Phone</string>
 

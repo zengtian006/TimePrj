@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Time Prj</string>
+    <string name="action_settings">设置</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">我的日程</string>
+    <string name="nav_item_helper">寻找帮手</string>
+    <string name="nav_item_message">我的消息</string>
+
+    <string name="title_messages">我的消息</string>
+    <string name="title_home">我的日程</string>
+    <string name="title_helper">寻找帮手</string>
+
+    <string name="buy">BUY</string>
+    <string name="share">SHARE</string>
+    <string name="sell">SELL</string>
+    <string name="btn_link_to_register">如果还没有帐号，请点击 <u>这里</u> 注册.</string>
+    <string name="btn_login">登陆</string>
+    <string name="btn_sign_up">注册</string>
+    <string name="btn_verify">下一步</string>
+    <string name="btn_confirm">验证</string>
+    <string name="btn_link_to_login">如果已经注册，请点击 <u>这里</u> 登陆.</string>
+
+    <string name="hint_password">密码</string>
+    <string name="hint_name">全名</string>
+    <string name="hint_email">电子邮箱</string>
+    <string name="hint_phone">手机号码</string>
+    <string name="hint_verify_code">验证码</string>
+
+    <string name="login_name">手机号码</string>
+    <string name="err_msg_name">输入您的手机号码</string>
+    <string name="err_msg_name_only">输入您的全名</string>
+    <string name="err_msg_password">输入密码</string>
+    <string name="err_msg_password_mismatch">两次输入密码不匹配</string>
+    <string name="err_msg_phone">输入您的手机号码</string>
+
+    <string name="action_login">登陆</string>
+    <string name="action_signup">注册</string>
+    <string name="text_or">或</string>
+
+    <string name="title_signup_phone">注册</string>
+
+</resources>

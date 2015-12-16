@@ -28,8 +28,6 @@ public class SubScheduleFragment extends Fragment {
     private final static String TAG = SubScheduleFragment.class.getSimpleName();
     RecyclerView rListView;
     CustomAdapter customAdapter;
-
-    //    static String[] date_name;
     List<Integer> date_img;
     List<String> date_name;
     List<Integer> schedule_count;

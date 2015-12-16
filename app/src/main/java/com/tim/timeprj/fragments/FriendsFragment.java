@@ -20,7 +20,7 @@ import java.util.Calendar;
 
 public class FriendsFragment extends Fragment{
     private final static String TAG = FriendsFragment.class.getSimpleName();
-    Button picker_btn;
+
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -43,30 +43,10 @@ public class FriendsFragment extends Fragment{
     }
 
     private void setListener() {
-        picker_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        (TimePickerDialog.OnTimeSetListener) getActivity(),
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.vibrate(false);
-                tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
-            }
-        });
+
     }
 
     private void findView(View rootView) {
-        picker_btn = (Button) rootView.findViewById(R.id.picker_button);
 
     }
 }

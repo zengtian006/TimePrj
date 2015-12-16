@@ -20,12 +20,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gms.test.datetimepicker.date.DatePickerDialog;
 import com.gms.test.datetimepicker.time.RadialPickerLayout;
 import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
 import com.tim.timeprj.fragments.FriendsFragment;
-import com.tim.timeprj.fragments.HomeFragment;
+import com.tim.timeprj.fragments.HelpFinderFragment;
 import com.tim.timeprj.fragments.InitFragment;
 import com.tim.timeprj.fragments.MessagesFragment;
 import com.tim.timeprj.helper.SessionManager;
@@ -121,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         String title = getString(R.string.app_name);
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
-                title = getString(R.string.title_home);
+                fragment = new HelpFinderFragment();
+                title = getString(R.string.title_helper);
                 break;
             case 1:
                 fragment = new FriendsFragment();

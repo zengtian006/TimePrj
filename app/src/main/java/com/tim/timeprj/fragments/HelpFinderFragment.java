@@ -6,7 +6,6 @@ package com.tim.timeprj.fragments;
  */
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HelpFinderFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int[] tabIcons = {
@@ -33,7 +32,7 @@ public class HomeFragment extends Fragment {
     };
     View rootView;
 
-    public HomeFragment() {
+    public HelpFinderFragment() {
         // Required empty public constructor
     }
 
@@ -45,7 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_helper, container, false);
         // Inflate the layout for this fragment
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
@@ -58,17 +57,6 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

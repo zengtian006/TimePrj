@@ -6,19 +6,12 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_address">Address</string>
+    <string name="nav_item_helper">Helper</string>
     <string name="nav_item_message">Messages</string>
-
-    <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_address</item>
-        <item>@string/nav_item_message</item>
-    </string-array>
 
     <string name="title_messages">Messages</string>
     <string name="title_friend">Friend</string>
-    <string name="title_home">Trading  Platform</string>
+    <string name="title_helper">Helper</string>
 
     <string name="buy">BUY</string>
     <string name="share">SHARE</string>

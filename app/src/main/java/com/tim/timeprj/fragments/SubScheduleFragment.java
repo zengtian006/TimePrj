@@ -144,6 +144,7 @@ public class SubScheduleFragment extends Fragment {
                     public void onClick(View v) {
                         Log.v(TAG, "position: " + item_name[getAdapterPosition()]);
                         Toast.makeText(getActivity(), "click: " + item_name[getAdapterPosition()], Toast.LENGTH_SHORT).show();
+                        HomeFragment.viewPager.setCurrentItem(1);
                     }
                 });
             }

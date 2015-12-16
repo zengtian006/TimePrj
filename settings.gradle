@@ -1,1 +1,1 @@
-include ':app', ':sharesdk', ':datetimepicker'
+include ':app', ':sharesdk', ':datetimepicker', ':swipelist'

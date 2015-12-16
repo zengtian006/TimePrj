@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/datetimepicker" />
             <option value="$PROJECT_DIR$/sharesdk" />
+            <option value="$PROJECT_DIR$/swipelist" />
           </set>
         </option>
       </GradleProjectSettings>

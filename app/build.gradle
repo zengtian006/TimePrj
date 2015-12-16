@@ -28,4 +28,5 @@ dependencies {
     compile files('libs/SMSSDK-1.1.5.jar')
     compile project(':sharesdk')
     compile project(':datetimepicker')
+    compile project(':swipelist')
 }

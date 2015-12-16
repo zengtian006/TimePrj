@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,13 +24,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import swipemenulistview.BaseSwipListAdapter;
+import swipemenulistview.SwipeMenu;
+import swipemenulistview.SwipeMenuCreator;
+import swipemenulistview.SwipeMenuItem;
+import swipemenulistview.SwipeMenuListView;
+
 /**
  * Created by Zeng on 2015/12/16.
  */
 public class SubScheduleListFragment extends Fragment {
     private final static String TAG = SubScheduleListFragment.class.getSimpleName();
 
-    RecyclerView rScheduleListView;
+    private SwipeMenuListView mListView;
     CustomAdapter customAdapter;
     FloatingActionButton fab;
 
@@ -57,14 +65,47 @@ public class SubScheduleListFragment extends Fragment {
 
     private void setView() {
         loadSchedule();
-        rScheduleListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         customAdapter = new CustomAdapter(getActivity());
-        rScheduleListView.setAdapter(customAdapter);
+//        rScheduleListView.setAdapter(customAdapter);
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getActivity().getApplicationContext());
+                // set item background
+                deleteItem.setBackground(R.color.colorAccent);
+                // set item width
+                deleteItem.setWidth(dp2px(90));
+                // set a icon
+                deleteItem.setIcon(R.drawable.ic_delete);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+        mListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        Log.v(TAG, "delete item");
+                        break;
+                }
+                return false;
+            }
+        });
+        mListView.setMenuCreator(creator);
+        mListView.setAdapter(customAdapter);
+        mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
     }
 
     private void findView(View rootView) {
-        rScheduleListView = (RecyclerView) rootView.findViewById(R.id.schedule_list);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        mListView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
+
     }
 
     private void loadSchedule() {
@@ -78,7 +119,7 @@ public class SubScheduleListFragment extends Fragment {
         }
     }
 
-    private class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.viewHolder> {
+    class CustomAdapter extends BaseSwipListAdapter {
 
         private final LayoutInflater inflater;
         private final Context mContext;
@@ -95,9 +136,10 @@ public class SubScheduleListFragment extends Fragment {
             this.mContext = context;
         }
 
+
         @Override
-        public CustomAdapter.viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new viewHolder(inflater.inflate(R.layout.schedule_item, parent, false));
+        public int getCount() {
+            return SubScheduleListFragment.this.event_time == null ? 0 : SubScheduleListFragment.this.event_time.size();
         }
 
         public void addItem() {
@@ -108,38 +150,49 @@ public class SubScheduleListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(CustomAdapter.viewHolder holder, int position) {
-            holder.mTime.setText(event_time.get(position));
-            holder.mImage.setImageResource(img_id.get(position));
-            holder.mName.setText(event_item_name.get(position).toString());
+        public Object getItem(int position) {
+            return null;
         }
 
         @Override
-        public int getItemCount() {
-            return SubScheduleListFragment.this.event_time == null ? 0 : SubScheduleListFragment.this.event_time.size();
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = View.inflate(getActivity().getApplicationContext(),
+                        R.layout.schedule_item, null);
+                new ViewHolder(convertView);
+            }
+
+            ViewHolder holder = (ViewHolder) convertView.getTag();
+
+            holder.mTime.setText(event_time.get(position));
+            holder.mImage.setImageResource(img_id.get(position));
+            holder.mName.setText(event_item_name.get(position));
+            return convertView;
         }
 
 
-        public class viewHolder extends RecyclerView.ViewHolder {
+        class ViewHolder {
             public TextView mTime;
             public ImageView mImage;
             public TextView mName;
 
-            public viewHolder(View itemView) {
-                super(itemView);
+            public ViewHolder(View itemView) {
                 mTime = (TextView) itemView.findViewById(R.id.event_time);
                 mName = (TextView) itemView.findViewById(R.id.event_item_name);
                 mImage = (ImageView) itemView.findViewById(R.id.event_img);
-
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.v(TAG, "position: " + event_time.get(getAdapterPosition()));
-                        Toast.makeText(getActivity(), "click: " + event_time.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
-                        HomeFragment.viewPager.setCurrentItem(1);
-                    }
-                });
+                itemView.setTag(this);
             }
         }
+
+    }
+
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 }

@@ -29,8 +29,10 @@ import com.tim.timeprj.fragments.InitFragment;
 import com.tim.timeprj.fragments.MessagesFragment;
 import com.tim.timeprj.helper.SessionManager;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, NavigationView.OnNavigationItemSelectedListener {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, NavigationView.OnNavigationItemSelectedListener {
     private static String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar mToolbar;

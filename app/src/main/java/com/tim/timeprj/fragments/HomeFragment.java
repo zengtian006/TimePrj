@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mob.tools.gui.ViewPagerAdapter;
 import com.tim.timeprj.R;
 import com.tim.timeprj.component.CustomViewPager;
 
@@ -48,7 +47,7 @@ public class HomeFragment extends Fragment {
     private void setView() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFrag(new SubScheduleFragment(), "Schedule");
-        adapter.addFrag(new SubScheduleAddFragment(), "Add");
+        adapter.addFrag(new SubScheduleListFragment(), "List");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -12,12 +12,12 @@ import com.tim.timeprj.R;
 /**
  * Created by Zeng on 2015/12/16.
  */
-public class SubScheduleAddFragment extends Fragment {
+public class SubScheduleListFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_schedule_add, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_schedule_list, container, false);
         return rootView;
     }
 }

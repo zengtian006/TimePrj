@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private static String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar mToolbar;
-    //    private FragmentDrawer drawerFragment;
     public static DrawerLayout drawer;
     boolean doubleBackToExitPressedOnce = false;
     private static SessionManager session;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +49,24 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
-//        ImageView imageView = (ImageView) drawer.findViewById(R.id.user_icon);
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                drawer.closeDrawer(GravityCompat.START);
-//                startActivity(new Intent(MainActivity.this, MeActivity.class));
-//            }
-//        });
+        View headerLayout = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView) headerLayout.findViewById(R.id.user_icon);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this, MeActivity.class));
+            }
+        });
 //        drawerFragment = (FragmentDrawer)
 //                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 //        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
@@ -76,8 +79,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             displayView(0);
         }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -189,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        setTitle(item.getTitle());
         switch (id) {
             case R.id.nav_1:
                 displayView(0);

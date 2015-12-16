@@ -3,11 +3,13 @@ package com.tim.timeprj.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -28,12 +30,12 @@ import com.tim.timeprj.fragments.InitFragment;
 import com.tim.timeprj.fragments.MessagesFragment;
 import com.tim.timeprj.helper.SessionManager;
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener, TimePickerDialog.OnTimeSetListener {
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, NavigationView.OnNavigationItemSelectedListener {
 
     private static String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    //    private FragmentDrawer drawerFragment;
     public static DrawerLayout drawer;
     boolean doubleBackToExitPressedOnce = false;
     private static SessionManager session;
@@ -48,18 +50,24 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ImageView imageView = (ImageView) drawer.findViewById(R.id.user_icon);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(MainActivity.this, MeActivity.class));
-            }
-        });
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+
+//        ImageView imageView = (ImageView) drawer.findViewById(R.id.user_icon);
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.closeDrawer(GravityCompat.START);
+//                startActivity(new Intent(MainActivity.this, MeActivity.class));
+//            }
+//        });
+//        drawerFragment = (FragmentDrawer)
+//                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+//        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+//        drawerFragment.setDrawerListener(this);
 
         session = new SessionManager(getApplicationContext());
         if (!session.isLoggedIn()) {
@@ -67,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         } else {
             displayView(0);
         }
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -106,11 +117,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        displayView(position);
     }
 
     private void displayView(int position) {
@@ -172,12 +178,31 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
-        String minuteString = minute < 10 ? "0"+minute : ""+minute;
-        String hourStringEnd = hourOfDayEnd < 10 ? "0"+hourOfDayEnd : ""+hourOfDayEnd;
-        String minuteStringEnd = minuteEnd < 10 ? "0"+minuteEnd : ""+minuteEnd;
-        String time = "You picked the following time: From - "+hourString+"h"+minuteString+"m To - "+hourStringEnd+"h"+minuteStringEnd+"m";
-        Log.v(TAG, "hehe: "+time);
+        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+        String minuteString = minute < 10 ? "0" + minute : "" + minute;
+        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
+        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
+        String time = "You picked the following time: From - " + hourString + "h" + minuteString + "m To - " + hourStringEnd + "h" + minuteStringEnd + "m";
+        Log.v(TAG, "hehe: " + time);
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        setTitle(item.getTitle());
+        switch (id) {
+            case R.id.nav_1:
+                displayView(0);
+                break;
+            case R.id.nav_2:
+                displayView(1);
+                break;
+            case R.id.nav_3:
+                displayView(2);
+                break;
+        }
+        Log.v(TAG, "title: " + item.getTitle());
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

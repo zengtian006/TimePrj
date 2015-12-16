@@ -30,13 +30,13 @@ public class SubScheduleFragment extends Fragment {
     static Integer[] date_img;
 
     static String[] schedule_count = {
-            "",
+            "1",
             "9",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "2",
+            "3",
+            "4",
+            "5",
+            "7"
     };
 
     @Nullable
@@ -49,6 +49,12 @@ public class SubScheduleFragment extends Fragment {
     }
 
     private void setView() {
+        loadSchedule();
+        rListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rListView.setAdapter(new customAdapter(getActivity()));
+    }
+
+    private void loadSchedule() {
         date_name = new String[7];
         date_img = new Integer[7];
         for (int i = 0; i < 7; i++) {
@@ -57,6 +63,9 @@ public class SubScheduleFragment extends Fragment {
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
             String formattedDate = df.format(c.getTime());
             date_name[i] = formattedDate;
+            if (i == 0) {
+                date_name[i] += " (today)";
+            }
             SimpleDateFormat sdf = new SimpleDateFormat("EEE");
             String dayofWeek = sdf.format(c.getTime());
             if (dayofWeek.equals("Mon")) {
@@ -77,9 +86,6 @@ public class SubScheduleFragment extends Fragment {
             Log.v(TAG, "Formate time => " + formattedDate);
             Log.v(TAG, "date of week => " + dayofWeek);
         }
-
-        rListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rListView.setAdapter(new customAdapter(getActivity()));
     }
 
     private void findView(View rootView) {
@@ -113,6 +119,7 @@ public class SubScheduleFragment extends Fragment {
             holder.mName.setText(item_name[position]);
             holder.mImage.setImageResource(img_id[position]);
             holder.mCount.setText(item_count[position]);
+            holder.mDetail.setText("detail" + position);
         }
 
         @Override
@@ -124,12 +131,14 @@ public class SubScheduleFragment extends Fragment {
             public TextView mName;
             public ImageView mImage;
             public TextView mCount;
+            public TextView mDetail;
 
             public viewHolder(View itemView) {
                 super(itemView);
                 mName = (TextView) itemView.findViewById(R.id.date_name);
                 mImage = (ImageView) itemView.findViewById(R.id.date_img);
                 mCount = (TextView) itemView.findViewById(R.id.schedule_count);
+                mDetail = (TextView) itemView.findViewById(R.id.date_detail);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

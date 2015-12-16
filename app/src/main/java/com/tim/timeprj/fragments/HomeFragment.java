@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     private void setView() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFrag(new SubScheduleFragment(), "Schedule");
-        adapter.addFrag(new SellFragment(), "Detail");
+        adapter.addFrag(new SubScheduleAddFragment(), "Add");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

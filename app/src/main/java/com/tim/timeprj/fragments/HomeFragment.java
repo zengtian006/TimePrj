@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 10) {
                 Log.v(TAG, "result: " + data.getExtras().getString("test"));
-                SubScheduleListFragment.customAdapter.addItem();
+                SubScheduleListFragment.customAdapter.addItem(data.getExtras().getString("test"));
             }
         }
     }

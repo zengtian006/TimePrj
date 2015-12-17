@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.tim.timeprj"
         minSdkVersion 15
@@ -25,6 +25,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.google.android.gms:play-services-analytics:8.1.0'
     compile files('libs/SMSSDK-1.1.5.jar')
     compile project(':sharesdk')
     compile project(':datetimepicker')

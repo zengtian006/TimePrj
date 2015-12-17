@@ -148,8 +148,8 @@ public class SubScheduleListFragment extends Fragment {
             return SubScheduleListFragment.this.event_time == null ? 0 : SubScheduleListFragment.this.event_time.size();
         }
 
-        public void addItem() {
-            this.event_time.add("test");
+        public void addItem(String test) {
+            this.event_time.add(test);
             this.event_item_name.add("haha");
             this.img_id.add(R.drawable.monday);
             notifyDataSetChanged();

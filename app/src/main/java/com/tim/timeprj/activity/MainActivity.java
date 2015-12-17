@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static String TAG = MainActivity.class.getSimpleName();
 
     private Toolbar mToolbar;
@@ -175,17 +175,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             // set the toolbar title
             getSupportActionBar().setTitle(title);
         }
-    }
-
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int hourOfDayEnd, int minuteEnd) {
-        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
-        String minuteString = minute < 10 ? "0" + minute : "" + minute;
-        String hourStringEnd = hourOfDayEnd < 10 ? "0" + hourOfDayEnd : "" + hourOfDayEnd;
-        String minuteStringEnd = minuteEnd < 10 ? "0" + minuteEnd : "" + minuteEnd;
-        String time = "You picked the following time: From - " + hourString + "h" + minuteString + "m To - " + hourStringEnd + "h" + minuteStringEnd + "m";
-        Log.v(TAG, "hehe: " + time);
     }
 
     @Override

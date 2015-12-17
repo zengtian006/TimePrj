@@ -1,1 +1,1 @@
-include ':app', ':sharesdk', ':datetimepicker', ':swipelist', ':wheel', ':addresspicker'
+include ':app', ':sharesdk', ':datetimepicker', ':swipelist', ':wheel', ':addresspicker', ':MPChartLib'

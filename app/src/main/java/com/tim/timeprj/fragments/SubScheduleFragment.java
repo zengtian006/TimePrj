@@ -46,7 +46,7 @@ public class SubScheduleFragment extends Fragment {
         rListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         customAdapter = new CustomAdapter(getActivity());
         rListView.setAdapter(customAdapter);
-        customAdapter.addItem();
+//        customAdapter.addItem();
     }
 
     private void findView(View rootView) {

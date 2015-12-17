@@ -57,7 +57,8 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="help item"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/ligntTextColor" />
 
         </LinearLayout>
 

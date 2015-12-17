@@ -1,6 +1,7 @@
 package com.tim.timeprj.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tim.timeprj.R;
+import com.tim.timeprj.activity.LoginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -58,7 +60,8 @@ public class SubScheduleListFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customAdapter.addItem();
+//                customAdapter.addItem();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
     }
@@ -150,13 +153,16 @@ public class SubScheduleListFragment extends Fragment {
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public List getItem(int position) {
+            List resultList = new ArrayList();
+            resultList.add(event_item_name.get(position));
+            resultList.add(event_time.get(position));
+            return resultList;
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override

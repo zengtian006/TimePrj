@@ -23,15 +23,23 @@
                 android:id="@+id/input_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Select time"
+                android:hint="Time range"
                 android:singleLine="true"
                 android:typeface="serif" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/main_btn"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Button>
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:typeface="serif" />
+        </android.support.design.widget.TextInputLayout>
 
         <com.eruntech.addresspicker.widgets.ChineseAddressPicker
             android:id="@+id/main_picker"

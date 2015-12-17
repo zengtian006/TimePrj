@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,9 +26,10 @@ import java.util.Calendar;
 public class AddScheduleActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private final static String TAG = AddScheduleActivity.class.getSimpleName();
 
-    EditText edt_time;
+    EditText edt_time, edt_address;
     ChineseAddressPicker mPicker;
-    Button mButton;
+    TextInputLayout layout_address;
+//    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
 
         edt_time = (EditText) findViewById(R.id.input_time);
         mPicker = (ChineseAddressPicker) findViewById(R.id.main_picker);
-        mButton = (Button) findViewById(R.id.main_btn);
+        edt_address = (EditText) findViewById(R.id.input_address);
+        layout_address = (TextInputLayout) findViewById(R.id.input_layout_address);
 
         edt_time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -82,7 +85,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                         }
                     }
                 }
-                mButton.setText(address);
+                edt_address.setText(address);
             }
 
             @Override
@@ -97,12 +100,14 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                         }
                     }
                 }
-                mButton.setText(address);
+                edt_address.setText(address);
             }
         });
 
-        mButton.setText(getString(R.string.btn_main_text));
-        mButton.setOnClickListener(new View.OnClickListener() {
+        layout_address.setHint(getString(R.string.btn_main_text));
+        edt_address.setFocusable(false);
+        edt_address.setClickable(true);
+        edt_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPicker.show();

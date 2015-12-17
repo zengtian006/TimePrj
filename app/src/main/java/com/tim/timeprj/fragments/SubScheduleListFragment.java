@@ -121,7 +121,7 @@ public class SubScheduleListFragment extends Fragment {
         for (int i = 0; i < 2; i++) {
             event_item_name.add(String.valueOf(i));
             event_time.add(String.valueOf(i));
-            event_img.add(R.drawable.monday);
+            event_img.add(R.drawable.schedule_tag);
         }
     }
 
@@ -151,7 +151,7 @@ public class SubScheduleListFragment extends Fragment {
         public void addItem(String test) {
             this.event_time.add(test);
             this.event_item_name.add("haha");
-            this.img_id.add(R.drawable.monday);
+            this.img_id.add(R.drawable.schedule_tag);
             notifyDataSetChanged();
         }
 

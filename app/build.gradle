@@ -30,4 +30,5 @@ dependencies {
     compile project(':sharesdk')
     compile project(':datetimepicker')
     compile project(':swipelist')
+    compile project(':addresspicker')
 }

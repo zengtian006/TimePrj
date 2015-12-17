@@ -28,6 +28,22 @@
                 android:typeface="serif" />
         </android.support.design.widget.TextInputLayout>
 
+        <Button
+            android:id="@+id/main_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></Button>
+
+        <com.eruntech.addresspicker.widgets.ChineseAddressPicker
+            android:id="@+id/main_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:actionBarVisible="true"
+            app:animationVisible="true"
+            app:defaultVisible="false"
+            app:jsonDataEnable="true"
+            app:sortByPronunciation="false"
+            app:visibleItemCount="5" />
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

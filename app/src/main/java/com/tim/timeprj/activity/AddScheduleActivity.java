@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.eruntech.addresspicker.widgets.ChineseAddressPicker;
 import com.gms.test.datetimepicker.time.RadialPickerLayout;
 import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
@@ -25,6 +26,8 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
     private final static String TAG = AddScheduleActivity.class.getSimpleName();
 
     EditText edt_time;
+    ChineseAddressPicker mPicker;
+    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         setContentView(R.layout.activity_add_schedule);
 
         edt_time = (EditText) findViewById(R.id.input_time);
+        mPicker = (ChineseAddressPicker) findViewById(R.id.main_picker);
+        mButton = (Button) findViewById(R.id.main_btn);
+
         edt_time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -62,6 +68,47 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                 tpd.show(getFragmentManager(), "Timepickerdialog");
             }
         });
+
+        mPicker.setOnAddressPickerListener(new ChineseAddressPicker.OnAddressPickerListener() {
+            @Override
+            public void onAddressPicked() {
+                String address = null;
+                if (mPicker.getProviceName() != null) {
+                    address = mPicker.getProviceName();
+                    if (mPicker.getCityName() != null) {
+                        address += " - " + mPicker.getCityName();
+                        if (mPicker.getDistrictName() != null) {
+                            address += " - " + mPicker.getDistrictName();
+                        }
+                    }
+                }
+                mButton.setText(address);
+            }
+
+            @Override
+            public void onAddressChanged() {
+                String address = null;
+                if (mPicker.getProviceName() != null) {
+                    address = mPicker.getProviceName();
+                    if (mPicker.getCityName() != null) {
+                        address += " - " + mPicker.getCityName();
+                        if (mPicker.getDistrictName() != null) {
+                            address += " - " + mPicker.getDistrictName();
+                        }
+                    }
+                }
+                mButton.setText(address);
+            }
+        });
+
+        mButton.setText(getString(R.string.btn_main_text));
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPicker.show();
+            }
+        });
+
     }
 
     @Override

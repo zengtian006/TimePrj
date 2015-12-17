@@ -1,10 +1,13 @@
 package com.tim.timeprj.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,4 +94,13 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 10) {
+                Log.v(TAG, "result: " + data.getExtras().getString("test"));
+                SubScheduleListFragment.customAdapter.addItem();
+            }
+        }
+    }
 }

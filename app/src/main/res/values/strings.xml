@@ -43,4 +43,7 @@
 
     <string name="title_signup_phone">Sign Up with Phone</string>
 
+    <string name="action_add_schedule">Add Schedule</string>
+    <string name="action_donw">Done</string>
+
 </resources>

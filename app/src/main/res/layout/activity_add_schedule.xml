@@ -23,7 +23,7 @@
                 android:id="@+id/input_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Time range"
+                android:hint="@string/time_range"
                 android:singleLine="true"
                 android:typeface="serif" />
         </android.support.design.widget.TextInputLayout>

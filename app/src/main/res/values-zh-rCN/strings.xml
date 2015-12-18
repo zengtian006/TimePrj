@@ -41,5 +41,8 @@
     <string name="text_or">或</string>
 
     <string name="title_signup_phone">注册</string>
+    <string name="action_add_schedule">添加日程</string>
+    <string name="action_donw">完成</string>
+    <string name="time_range">时间段</string>
 
 </resources>

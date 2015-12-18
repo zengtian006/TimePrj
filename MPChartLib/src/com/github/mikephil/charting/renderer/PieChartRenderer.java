@@ -215,16 +215,16 @@ public class PieChartRenderer extends DataRenderer {
                         * Math.sin(Math.toRadians((rotationAngle + absoluteAngles[cnt] - offset)
                         * mAnimator.getPhaseY())) + center.y);
 
-                float value = mChart.isUsePercentValuesEnabled() ? entry.getVal()
-                        / data.getYValueSum() * 100f : entry.getVal();
-
+                float value = mChart.isUsePercentValuesEnabled() ? entry.getVal() : entry.getVal();
+//                float value = mChart.isUsePercentValuesEnabled() ? entry.getVal()
+//                        / data.getYValueSum() * 100f : entry.getVal();
                 ValueFormatter formatter = dataSet.getValueFormatter();
 
                 boolean drawYVals = dataSet.isDrawValuesEnabled();
 
                 // draw everything, depending on settings
                 if (drawXVals && drawYVals) {
-
+//                    Log.v("eee", "Value!!!!!: " + value);
                     drawValue(c, formatter, value, entry, 0, x, y);
 
                     if (j < data.getXValCount())

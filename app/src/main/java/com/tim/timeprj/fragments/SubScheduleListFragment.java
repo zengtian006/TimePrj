@@ -26,10 +26,13 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.tim.timeprj.R;
 import com.tim.timeprj.activity.AddScheduleActivity;
 
@@ -120,10 +123,8 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         mListView.setMenuCreator(creator);
         mListView.setAdapter(customAdapter);
         mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-
         //set pie chart
-        mChart.setUsePercentValues(true);
-        mChart.setDescription("");
+        mChart.setDescription("Occupation of Time");
         mChart.setExtraOffsets(5, 10, 5, 5);
         mChart.setDragDecelerationFrictionCoef(0.95f);
         tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
@@ -140,7 +141,8 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         // enable rotation of the chart by touch
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
-        setData(3, 100);
+        mChart.setUsePercentValues(false);
+        setData(3, 24);
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
         Legend l = mChart.getLegend();
@@ -155,32 +157,34 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         mChart = (PieChart) rootView.findViewById(R.id.chart1);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mListView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
-
     }
 
     private void setData(int count, float range) {
         float mult = range;
-
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
 
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
+        yVals1.add(new Entry(2, 0));
+        yVals1.add(new Entry(6, 1));
+        yVals1.add(new Entry(4, 2));
+        yVals1.add(new Entry(12, 3));
         for (int i = 0; i < count + 1; i++) {
-            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
+//            yVals1.add(new Entry((float) (i * mult) + mult / 5, i));
+            Log.v(TAG, yVals1.get(i).toString());
         }
+
 
         ArrayList<String> xVals = new ArrayList<String>();
 
         for (int i = 0; i < count + 1; i++)
             xVals.add(mParties[i % mParties.length]);
 
-        PieDataSet dataSet = new PieDataSet(yVals1, "Election Results");
+        PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(2f);
         dataSet.setSelectionShift(5f);
-
         // add a lot of colors
-
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
@@ -204,7 +208,9 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(xVals, dataSet);
-        data.setValueFormatter(new PercentFormatter());
+        //IMPORTANT
+        data.setValueFormatter(new DefaultValueFormatter(1));
+        //
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(tf);
@@ -220,7 +226,6 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 0, s.length(), 0);
         s.setSpan(new RelativeSizeSpan(2f), 0, s.length(), 0);
         s.setSpan(new StyleSpan(Typeface.BOLD), 0, s.length(), 0);
-
 
 //        SpannableString s = new SpannableString("MPAndroidChart developed by Philipp Jahoda");
 //        s.setSpan(new RelativeSizeSpan(1f), 0, 14, 0);

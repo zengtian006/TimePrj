@@ -1,6 +1,8 @@
 
 package com.github.mikephil.charting.formatter;
 
+import android.util.Log;
+
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ViewPortHandler;

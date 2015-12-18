@@ -4,15 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <swipemenulistview.SwipeMenuListView
-        android:id="@+id/listView"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/windowBackground"
-        android:paddingTop="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/mydivider"
+        android:dividerHeight="2dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
 
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="@android:color/white" />
+
+        <swipemenulistview.SwipeMenuListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:background="@color/windowBackground" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

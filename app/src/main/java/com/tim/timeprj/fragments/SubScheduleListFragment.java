@@ -1,32 +1,39 @@
 package com.tim.timeprj.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tim.timeprj.R;
 import com.tim.timeprj.activity.AddScheduleActivity;
-import com.tim.timeprj.activity.LoginActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import swipemenulistview.BaseSwipListAdapter;
@@ -38,12 +45,21 @@ import swipemenulistview.SwipeMenuListView;
 /**
  * Created by Zeng on 2015/12/16.
  */
-public class SubScheduleListFragment extends Fragment {
+public class SubScheduleListFragment extends Fragment implements OnChartValueSelectedListener {
     private final static String TAG = SubScheduleListFragment.class.getSimpleName();
 
     private SwipeMenuListView mListView;
     static CustomAdapter customAdapter;
     FloatingActionButton fab;
+
+    private PieChart mChart;
+    private Typeface tf;
+    protected String[] mParties = new String[]{
+            "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+            "Party Y", "Party Z"
+    };
 
     List<String> event_item_name;
     List<String> event_time;
@@ -63,17 +79,15 @@ public class SubScheduleListFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                customAdapter.addItem();
                 getParentFragment().startActivityForResult(new Intent(getActivity(), AddScheduleActivity.class), 10);
             }
         });
+        mChart.setOnChartValueSelectedListener(this);
     }
 
     private void setView() {
         loadSchedule();
         customAdapter = new CustomAdapter(getActivity());
-//        rScheduleListView.setAdapter(customAdapter);
-
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -106,12 +120,116 @@ public class SubScheduleListFragment extends Fragment {
         mListView.setMenuCreator(creator);
         mListView.setAdapter(customAdapter);
         mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        //set pie chart
+        mChart.setUsePercentValues(true);
+        mChart.setDescription("");
+        mChart.setExtraOffsets(5, 10, 5, 5);
+        mChart.setDragDecelerationFrictionCoef(0.95f);
+        tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
+        mChart.setCenterTextTypeface(Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf"));
+        mChart.setCenterText(generateCenterSpannableText());
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColorTransparent(true);
+        mChart.setTransparentCircleColor(Color.WHITE);
+        mChart.setTransparentCircleAlpha(110);
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
+        mChart.setDrawCenterText(true);
+        mChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChart.setRotationEnabled(true);
+        mChart.setHighlightPerTapEnabled(true);
+        setData(3, 100);
+        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        // mChart.spin(2000, 0, 360);
+        Legend l = mChart.getLegend();
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+        //
     }
 
     private void findView(View rootView) {
+        mChart = (PieChart) rootView.findViewById(R.id.chart1);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mListView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
 
+    }
+
+    private void setData(int count, float range) {
+        float mult = range;
+
+        ArrayList<Entry> yVals1 = new ArrayList<Entry>();
+
+        // IMPORTANT: In a PieChart, no values (Entry) should have the same
+        // xIndex (even if from different DataSets), since no values can be
+        // drawn above each other.
+        for (int i = 0; i < count + 1; i++) {
+            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
+        }
+
+        ArrayList<String> xVals = new ArrayList<String>();
+
+        for (int i = 0; i < count + 1; i++)
+            xVals.add(mParties[i % mParties.length]);
+
+        PieDataSet dataSet = new PieDataSet(yVals1, "Election Results");
+        dataSet.setSliceSpace(2f);
+        dataSet.setSelectionShift(5f);
+
+        // add a lot of colors
+
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
+        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueTypeface(tf);
+        mChart.setData(data);
+        // undo all highlights
+        mChart.highlightValues(null);
+
+        mChart.invalidate();
+    }
+
+    private SpannableString generateCenterSpannableText() {
+        SpannableString s = new SpannableString("6 / 24");
+        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), 0, s.length(), 0);
+        s.setSpan(new RelativeSizeSpan(2f), 0, s.length(), 0);
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, s.length(), 0);
+
+
+//        SpannableString s = new SpannableString("MPAndroidChart developed by Philipp Jahoda");
+//        s.setSpan(new RelativeSizeSpan(1f), 0, 14, 0);
+//        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
+//        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
+//        s.setSpan(new RelativeSizeSpan(.5f), 14, s.length() - 15, 0);
+//        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
+//        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
+        return s;
     }
 
     private void loadSchedule() {
@@ -123,6 +241,18 @@ public class SubScheduleListFragment extends Fragment {
             event_time.add(String.valueOf(i));
             event_img.add(R.drawable.schedule_tag);
         }
+    }
+
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+        if (e == null)
+            return;
+        Log.v(TAG, "Value: " + e.getVal() + ", xIndex: " + e.getXIndex() + ", DataSet index: " + dataSetIndex);
+    }
+
+    @Override
+    public void onNothingSelected() {
+
     }
 
     class CustomAdapter extends BaseSwipListAdapter {

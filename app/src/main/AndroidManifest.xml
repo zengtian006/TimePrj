@@ -75,6 +75,10 @@
             android:name=".activity.AddScheduleActivity"
             android:label="@string/action_add_schedule"
             android:theme="@style/MyTheme" />
+        <activity
+            android:name=".activity.PieChartActivity"
+            android:label="@string/action_add_schedule"
+            android:theme="@style/MyTheme" />
 
         <!--
           Optionally, register AnalyticsReceiver and AnalyticsService to support background

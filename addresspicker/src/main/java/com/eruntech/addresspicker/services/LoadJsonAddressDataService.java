@@ -65,7 +65,7 @@ public class LoadJsonAddressDataService {
             String json = InputStreamToString(jsonStream, "UTF-8");
 
             JSONObject jsonObject = new JSONObject(json);
-            jsonObject.remove("整理者");
+//            jsonObject.remove("整理者");
             JSONArray provincesWithOrder = jsonObject.getJSONArray("中国省份自治区直辖市顺序");
             jsonObject.remove("中国省份自治区直辖市顺序");
 

@@ -34,52 +34,91 @@ import kankan.wheel.widget.adapters.ArrayWheelAdapter;
 public class ChineseAddressPicker extends LinearLayout
         implements View.OnClickListener, OnWheelChangedListener, OnAddressDataServiceListener {
 
-    /** 上下文 **/
+    /**
+     * 上下文
+     **/
     private Context mContext;
 
-    /** Log标签 **/
+    /**
+     * Log标签
+     **/
     private final String LOG_TAG = this.getClass().getSimpleName();
-    /** 选择地址的时候没有选中具体地址时的字符串 **/
+    /**
+     * 选择地址的时候没有选中具体地址时的字符串
+     **/
     private final String NO_ADDRESS_PICKED = "-----";
-    /** 地址选择器默认可见项目数 **/
+    /**
+     * 地址选择器默认可见项目数
+     **/
     private final int DEFAULT_VISIBLE_ITEM_COUNT = 5;
-    /** 地址选择器最小可见项目数 **/
+    /**
+     * 地址选择器最小可见项目数
+     **/
     private final int MIN_VISIBLE_ITEM_COUNT = 3;
 
 
     //从 R.styleable.ChineseAddressPicker 读取
-    /** 地址选择器实际可见项目数 **/
+    /**
+     * 地址选择器实际可见项目数
+     **/
     private int mVisibleItemCount;
-    /** 控件默认是否可见 **/
+    /**
+     * 控件默认是否可见
+     **/
     private boolean mDefaultVisible;
-    /** 是否显示过渡动画 **/
+    /**
+     * 是否显示过渡动画
+     **/
     private boolean mAnimationVisible = true;
-    /** 是否显示动作条，即确认按钮 **/
+    /**
+     * 是否显示动作条，即确认按钮
+     **/
     private boolean mActionBarVisible = true;
-    /** 是否按读音排序，否则按区域代号排序，按读音排序必须XML数据 **/
+    /**
+     * 是否按读音排序，否则按区域代号排序，按读音排序必须XML数据
+     **/
     private boolean mIsSortedByPronunciation = false;
-    /** 是否使用JSON数据，否则使用XML数据，JSON数据更新更全面，但是无法按照读音排序，默认使用JSON数据 **/
+    /**
+     * 是否使用JSON数据，否则使用XML数据，JSON数据更新更全面，但是无法按照读音排序，默认使用JSON数据
+     **/
     private boolean mIsJsonDataEnable = true;
 
-    /** 包含所有省的名称 **/
+    /**
+     * 包含所有省的名称
+     **/
     private String[] mProvinceDatas;
-    /** key - 省 value - 市 **/
+    /**
+     * key - 省 value - 市
+     **/
     private Map<String, String[]> mCityDataMap = new HashMap<>();
-    /** key - 市 values - 区 **/
+    /**
+     * key - 市 values - 区
+     **/
     private Map<String, String[]> mDistrictDataMap = new HashMap<>();
 
-    /** 当前选中的省的名称 **/
+    /**
+     * 当前选中的省的名称
+     **/
     private String mCurrentProviceName;
+
     public String getProviceName() {
         return mCurrentProviceName;
     }
-    /** 当前选中的市的名称 **/
+
+    /**
+     * 当前选中的市的名称
+     **/
     private String mCurrentCityName;
+
     public String getCityName() {
         return mCurrentCityName;
     }
-    /** 当前选中的区的名称 **/
+
+    /**
+     * 当前选中的区的名称
+     **/
     private String mCurrentDistrictName;
+
     public String getDistrictName() {
         if (mCurrentDistrictName.equals(NO_ADDRESS_PICKED)) {
             return null;
@@ -87,22 +126,36 @@ public class ChineseAddressPicker extends LinearLayout
             return mCurrentDistrictName;
         }
     }
-    /** 监听器 **/
+
+    /**
+     * 监听器
+     **/
     private OnAddressPickerListener mOnAddressPickerListener;
+
     public void setOnAddressPickerListener(OnAddressPickerListener listener) {
         mOnAddressPickerListener = listener;
     }
 
     //控件声明，setUpViews()方法
-    /** 省份WheelView的引用 **/
+    /**
+     * 省份WheelView的引用
+     **/
     private WheelView mViewProvince;
-    /** 城市WheelView的引用 **/
+    /**
+     * 城市WheelView的引用
+     **/
     private WheelView mViewCity;
-    /** 区域WheelView的引用 **/
+    /**
+     * 区域WheelView的引用
+     **/
     private WheelView mViewDistrict;
-    /** 确认按钮的引用 **/
+    /**
+     * 确认按钮的引用
+     **/
     private Button mBtnConfirm;
-    /** ActionBar的引用 **/
+    /**
+     * ActionBar的引用
+     **/
     private RelativeLayout mActionBar;
 
     public ChineseAddressPicker(Context context) {
@@ -149,6 +202,7 @@ public class ChineseAddressPicker extends LinearLayout
      * <P>修改时间：2015-09-11
      * <P>作者：Qin Yuanyi
      * <P>功能描述：初始化控件
+     *
      * @param context 上下文
      */
     private void initPicker(Context context) {
@@ -175,8 +229,9 @@ public class ChineseAddressPicker extends LinearLayout
      * <P>修改时间：2015-09-18
      * <P>作者：Qin Yuanyi
      * <P>功能描述：当储存在本地的中国地址数据被解析完毕时的回调函数
-     * @param provinceData 包含所有省名字的字符串数组
-     * @param cityDataMap key - 省， value - 市
+     *
+     * @param provinceData     包含所有省名字的字符串数组
+     * @param cityDataMap      key - 省， value - 市
      * @param districtDatasMap key - 市， value - 区
      */
     @Override
@@ -241,8 +296,11 @@ public class ChineseAddressPicker extends LinearLayout
      * <P>功能描述：解析完地址数据处理解析好的数据并绑定到控件上
      */
     private void setUpData() {
+        ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, mProvinceDatas);
+        adapter.setTextSize(20);
+        adapter.setTextColor(0xff666666);
 
-        mViewProvince.setViewAdapter(new ArrayWheelAdapter<>(mContext, mProvinceDatas));
+        mViewProvince.setViewAdapter(adapter);
 
         mViewProvince.setVisibleItems(mVisibleItemCount);
         mViewCity.setVisibleItems(mVisibleItemCount);
@@ -295,10 +353,13 @@ public class ChineseAddressPicker extends LinearLayout
         mCurrentProviceName = mProvinceDatas[currentItemIndex];
         String[] cities = mCityDataMap.get(mCurrentProviceName);
         if (cities == null) {
-            cities = new String[] { "数据缺失" };
+            cities = new String[]{"数据缺失"};
             Log.w(LOG_TAG, mCurrentProviceName + "下的城市信息缺失。");
         }
-        mViewCity.setViewAdapter(new ArrayWheelAdapter<>(mContext, cities));
+        ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, cities);
+        adapter.setTextSize(20);
+        adapter.setTextColor(0xff666666);
+        mViewCity.setViewAdapter(adapter);
         mViewCity.setCurrentItem(0);
         updateDistricts();
     }
@@ -314,10 +375,13 @@ public class ChineseAddressPicker extends LinearLayout
         String[] districts = mDistrictDataMap.get(mCurrentCityName);
 
         if (districts == null) {
-            districts = new String[] { "数据缺失" };
+            districts = new String[]{"数据缺失"};
             Log.w(LOG_TAG, mCurrentCityName + "下的区域信息缺失。");
         }
-        mViewDistrict.setViewAdapter(new ArrayWheelAdapter<>(mContext, districts));
+        ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, districts);
+        adapter.setTextSize(20);
+        adapter.setTextColor(0xff666666);
+        mViewDistrict.setViewAdapter(adapter);
         mViewDistrict.setCurrentItem(0);
 
         mCurrentDistrictName = mDistrictDataMap.get(mCurrentCityName)[0];
@@ -454,13 +518,16 @@ public class ChineseAddressPicker extends LinearLayout
      */
     private abstract class ChineseAddressPickerAnimationListener implements Animation.AnimationListener {
         @Override
-        public void onAnimationStart(Animation animation) {}
+        public void onAnimationStart(Animation animation) {
+        }
 
         @Override
-        public void onAnimationEnd(Animation animation) {}
+        public void onAnimationEnd(Animation animation) {
+        }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {}
+        public void onAnimationRepeat(Animation animation) {
+        }
     }
 
     /**
@@ -476,6 +543,7 @@ public class ChineseAddressPicker extends LinearLayout
          * <P>功能描述：当地址被选中，并按下动作条的确定按钮之后的回调函数
          */
         void onAddressPicked();
+
         /**
          * <P>修改时间：2015-09-17
          * <P>作者：Qin Yuanyi

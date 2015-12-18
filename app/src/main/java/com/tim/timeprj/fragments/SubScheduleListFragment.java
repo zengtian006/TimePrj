@@ -3,7 +3,9 @@ package com.tim.timeprj.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -245,6 +247,8 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
             event_item_name.add(String.valueOf(i));
             event_time.add(String.valueOf(i));
             event_img.add(R.drawable.schedule_tag);
+            Drawable d = getResources().getDrawable(android.R.drawable.ic_dialog_alert);
+            d.setColorFilter(0xffddd, PorterDuff.Mode.MULTIPLY);
         }
     }
 

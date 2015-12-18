@@ -49,7 +49,9 @@ public class WheelView extends View {
     /**
      * Top and bottom shadows colors 1395ba
      */
-    private int[] SHADOWS_COLORS = new int[]{0xFFAAAAAA,
+//    private int[] SHADOWS_COLORS = new int[]{0xffAAAAAA,
+//            0x00AAAAAA, 0x00AAAAAA};
+    private int[] SHADOWS_COLORS = new int[]{0x70dddddd,
             0x00AAAAAA, 0x00AAAAAA};
 
 

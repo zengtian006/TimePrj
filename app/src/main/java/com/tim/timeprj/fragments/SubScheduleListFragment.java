@@ -250,7 +250,7 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         event_time = new ArrayList<String>();
         event_img = new ArrayList<Integer>();
         for (int i = 0; i < 2; i++) {
-            event_item_name.add(String.valueOf(i));
+            event_item_name.add("Applied");
             event_time.add(String.valueOf(i));
             event_img.add(colors.get(i));
         }

@@ -41,4 +41,30 @@
         app:layout_anchor="@id/listView"
         app:layout_anchorGravity="bottom|center|center_horizontal"
         app:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="50dp"
+        android:scaleType="center"
+        android:src="@drawable/add"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/listView"
+        app:layout_anchorGravity="bottom|center|right"
+        app:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="50dp"
+        android:scaleType="center"
+        android:src="@drawable/add"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_anchor="@id/listView"
+        app:layout_anchorGravity="bottom|center|left"
+        app:theme="@style/ThemeOverlay.AppCompat.Light" />
 </android.support.design.widget.CoordinatorLayout>

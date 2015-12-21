@@ -108,7 +108,7 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
                 // set item background
                 deleteItem.setBackground(R.color.colorAccent);
                 // set item width
-                deleteItem.setWidth(dp2px(90));
+                deleteItem.setWidth(dp2px(70));
                 // set a icon
                 deleteItem.setIcon(R.drawable.ic_delete);
                 // add to menu

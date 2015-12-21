@@ -32,6 +32,8 @@ import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
 import com.tim.timeprj.fragments.HomeFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,7 +46,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
 
     EditText edt_time, edt_address, edt_item;
     ChineseAddressPicker mPicker;
-    TextInputLayout layout_address;
+    TextInputLayout layout_address, layout_item;
     List<String> item_name;
     List<Boolean> item_checked;
     RecyclerView mRecyclerView;
@@ -129,6 +131,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
             @Override
             public void onClick(View v) {
                 Toast.makeText(AddScheduleActivity.this, item_checked.toString(), Toast.LENGTH_SHORT).show();
+                layout_item_list.setVisibility(LinearLayout.GONE);
             }
         });
 
@@ -169,6 +172,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         edt_item.setClickable(true);
 
         layout_address.setHint(getString(R.string.btn_main_text));
+        layout_item.setHint("Item");
     }
 
     private void findView() {
@@ -177,6 +181,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         mPicker = (ChineseAddressPicker) findViewById(R.id.main_picker);
         edt_address = (EditText) findViewById(R.id.input_address);
         layout_address = (TextInputLayout) findViewById(R.id.input_layout_address);
+        layout_item = (TextInputLayout) findViewById(R.id.input_layout_item);
         mRecyclerView = (RecyclerView) findViewById(R.id.item_recycler_view);
         confirm_item = (Button) findViewById(R.id.btn_confirm);
         layout_item_list = (LinearLayout) findViewById(R.id.item_list);

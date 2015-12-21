@@ -51,7 +51,7 @@ public class WheelView extends View {
      */
 //    private int[] SHADOWS_COLORS = new int[]{0xffAAAAAA,
 //            0x00AAAAAA, 0x00AAAAAA};
-    private int[] SHADOWS_COLORS = new int[]{0x70dddddd,
+    private int[] SHADOWS_COLORS = new int[]{0x00efefef,
             0x00AAAAAA, 0x00AAAAAA};
 
 
@@ -672,7 +672,7 @@ public class WheelView extends View {
         canvas.save();
 
         int top = (currentItem - firstItem) * getItemHeight() + (getItemHeight() - getHeight()) / 2;
-        Log.v("item", "Offset: " + scrollingOffset);
+//        Log.v("item", "Offset: " + scrollingOffset);
         canvas.translate(PADDING, -top + scrollingOffset);
 
         itemsLayout.draw(canvas);

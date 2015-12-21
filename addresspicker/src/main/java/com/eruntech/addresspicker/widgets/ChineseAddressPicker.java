@@ -421,18 +421,6 @@ public class ChineseAddressPicker extends LinearLayout
     /**
      * <P>修改时间：2015-09-11
      * <P>作者：Qin Yuanyi
-     * <P>功能描述：显示控件(无动画)
-     */
-    private void showWidget() {
-        this.setVisibility(View.VISIBLE);
-        //LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) this.getLayoutParams();
-        //layoutParams.height = LayoutParams.WRAP_CONTENT;
-        //this.setLayoutParams(layoutParams);
-    }
-
-    /**
-     * <P>修改时间：2015-09-11
-     * <P>作者：Qin Yuanyi
      * <P>功能描述：显示控件（包含过渡动画）
      */
     private void showWidgetWithAnimation() {
@@ -456,6 +444,18 @@ public class ChineseAddressPicker extends LinearLayout
         animationSet.addAnimation(animation);
 
         this.startAnimation(animationSet);
+    }
+
+    /**
+     * <P>修改时间：2015-09-11
+     * <P>作者：Qin Yuanyi
+     * <P>功能描述：显示控件(无动画)
+     */
+    private void showWidget() {
+        this.setVisibility(View.VISIBLE);
+        //LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) this.getLayoutParams();
+        //layoutParams.height = LayoutParams.WRAP_CONTENT;
+        //this.setLayoutParams(layoutParams);
     }
 
     /**

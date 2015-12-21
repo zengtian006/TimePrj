@@ -95,36 +95,7 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
     }
 
     private void setView() {
-        //set pie chart
-        mChart.setDescription("Occupation of Time");
-        mChart.setExtraOffsets(5, 10, 5, 5);
-        mChart.setDragDecelerationFrictionCoef(0.95f);
-        tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
-        mChart.setCenterTextTypeface(Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf"));
-        mChart.setCenterText(generateCenterSpannableText());
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColorTransparent(true);
-        mChart.setTransparentCircleColor(Color.WHITE);
-        mChart.setTransparentCircleAlpha(110);
-        mChart.setHoleRadius(58f);
-        mChart.setTransparentCircleRadius(61f);
-        mChart.setDrawCenterText(true);
-        mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChart.setRotationEnabled(true);
-        mChart.setHighlightPerTapEnabled(true);
-        mChart.setUsePercentValues(false);
-        setData(3, 24);
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChart.spin(2000, 0, 360);
-        Legend l = mChart.getLegend();
-        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
-        // set pie chart end
-
-        //
+        loadColor();
         loadSchedule();
         customAdapter = new CustomAdapter(getActivity());
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -159,9 +130,55 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         mListView.setMenuCreator(creator);
         mListView.setAdapter(customAdapter);
         mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        //set pie chart
+        mChart.setDescription("Occupation of Time");
+        mChart.setExtraOffsets(5, 10, 5, 5);
+        mChart.setDragDecelerationFrictionCoef(0.95f);
+        tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
+        mChart.setCenterTextTypeface(Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf"));
+        mChart.setCenterText(generateCenterSpannableText());
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColorTransparent(true);
+        mChart.setTransparentCircleColor(Color.WHITE);
+        mChart.setTransparentCircleAlpha(110);
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
+        mChart.setDrawCenterText(true);
+        mChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChart.setRotationEnabled(true);
+        mChart.setHighlightPerTapEnabled(true);
+        mChart.setUsePercentValues(false);
+        setData(3, 24);
+        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        // mChart.spin(2000, 0, 360);
+        Legend l = mChart.getLegend();
+        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+        // set pie chart end
+
+        //
+
+    }
+
+    private void loadColor() {
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+        colors.add(ColorTemplate.getHoloBlue());
     }
 
     private void findView(View rootView) {
+        // add a lot of colors
+        colors = new ArrayList<Integer>();
         mChart = (PieChart) rootView.findViewById(R.id.chart1);
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mListView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
@@ -192,25 +209,11 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(2f);
         dataSet.setSelectionShift(5f);
-        // add a lot of colors
-        colors = new ArrayList<Integer>();
-
 //        for (int c : ColorTemplate.VORDIPLOM_COLORS)
 //            colors.add(c);
 
 //        for (int c : ColorTemplate.JOYFUL_COLORS)
 //            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
@@ -249,11 +252,6 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         event_item_name = new ArrayList<String>();
         event_time = new ArrayList<String>();
         event_img = new ArrayList<Integer>();
-//        List<Integer> colorList = new ArrayList<Integer>();
-//        colorList.add(ContextCompat.getColor(getActivity(), R.color.button_text_color));
-//        colorList.add(ContextCompat.getColor(getActivity(), R.color.colorAccent));
-//        colorList.add(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-
         for (int i = 0; i < 2; i++) {
             event_item_name.add(String.valueOf(i));
             event_time.add(String.valueOf(i));
@@ -325,8 +323,8 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
             }
 
             ViewHolder holder = (ViewHolder) convertView.getTag();
-
             Drawable d = ContextCompat.getDrawable(getActivity(), R.drawable.tag_schedule);
+
             holder.mImage.setImageDrawable(d);
             holder.mImage.setBackgroundColor(event_color_id.get(position));
             holder.mName.setText(event_item_name.get(position));

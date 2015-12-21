@@ -159,9 +159,6 @@ public class SubScheduleListFragment extends Fragment implements OnChartValueSel
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
         // set pie chart end
-
-        //
-
     }
 
     private void loadColor() {

@@ -1,6 +1,7 @@
 package com.tim.timeprj.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,19 +10,31 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eruntech.addresspicker.widgets.ChineseAddressPicker;
 import com.gms.test.datetimepicker.time.RadialPickerLayout;
 import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
+import com.tim.timeprj.fragments.HomeFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Zeng on 2015/12/17.
@@ -29,9 +42,15 @@ import java.util.Calendar;
 public class AddScheduleActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private final static String TAG = AddScheduleActivity.class.getSimpleName();
 
-    EditText edt_time, edt_address;
+    EditText edt_time, edt_address, edt_item;
     ChineseAddressPicker mPicker;
     TextInputLayout layout_address;
+    List<String> item_name;
+    List<Boolean> item_checked;
+    RecyclerView mRecyclerView;
+    Button confirm_item;
+    LinearLayout layout_item_list;
+
 //    Button mButton;
 
     @Override
@@ -39,21 +58,12 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_schedule);
 
-        edt_time = (EditText) findViewById(R.id.input_time);
-        mPicker = (ChineseAddressPicker) findViewById(R.id.main_picker);
-        edt_address = (EditText) findViewById(R.id.input_address);
-        layout_address = (TextInputLayout) findViewById(R.id.input_layout_address);
+        findView();
+        setListener();
+        setView();
+    }
 
-        edt_time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-
-                }
-            }
-        });
-        edt_time.setFocusable(false);
-        edt_time.setClickable(true);
+    private void setListener() {
         edt_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,16 +117,69 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
             }
         });
 
-        layout_address.setHint(getString(R.string.btn_main_text));
-        edt_address.setFocusable(false);
-        edt_address.setClickable(true);
         edt_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPicker.show();
+                layout_item_list.setVisibility(LinearLayout.GONE);
             }
         });
 
+        confirm_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AddScheduleActivity.this, item_checked.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        edt_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (layout_item_list.isShown()) {
+                    layout_item_list.setVisibility(LinearLayout.GONE);
+                } else {
+                    layout_item_list.setVisibility(LinearLayout.VISIBLE);
+                    if (mPicker.isShown()) {
+                        mPicker.hide();
+                    }
+                }
+
+            }
+        });
+    }
+
+    private void setView() {
+        item_name = new ArrayList<String>();
+        item_checked = new ArrayList<Boolean>();
+        for (int i = 0; i < 2; i++) {
+            item_name.add(String.valueOf(i));
+        }
+        item_checked.add(false);
+        item_checked.add(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new CustomAdapter(AddScheduleActivity.this));
+
+        edt_address.setFocusable(false);
+        edt_address.setClickable(true);
+
+        edt_time.setFocusable(false);
+        edt_time.setClickable(true);
+
+        edt_item.setFocusable(false);
+        edt_item.setClickable(true);
+
+        layout_address.setHint(getString(R.string.btn_main_text));
+    }
+
+    private void findView() {
+        edt_time = (EditText) findViewById(R.id.input_time);
+        edt_item = (EditText) findViewById(R.id.input_item);
+        mPicker = (ChineseAddressPicker) findViewById(R.id.main_picker);
+        edt_address = (EditText) findViewById(R.id.input_address);
+        layout_address = (TextInputLayout) findViewById(R.id.input_layout_address);
+        mRecyclerView = (RecyclerView) findViewById(R.id.item_recycler_view);
+        confirm_item = (Button) findViewById(R.id.btn_confirm);
+        layout_item_list = (LinearLayout) findViewById(R.id.item_list);
     }
 
     @Override
@@ -148,5 +211,60 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         String time = hourString + ":" + minuteString + " - " + hourStringEnd + ":" + minuteStringEnd;
         edt_time.setText(time);
         Log.v(TAG, "hehe: " + "You picked the following time:" + time);
+    }
+
+
+    private class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.viewHolder> {
+
+        private final LayoutInflater inflater;
+        private final Context mContext;
+
+        public CustomAdapter(Context context) {
+            inflater = LayoutInflater.from(context);
+            this.mContext = context;
+        }
+
+        @Override
+        public CustomAdapter.viewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new viewHolder(inflater.inflate(R.layout.check_item, parent, false));
+        }
+
+        @Override
+        public void onBindViewHolder(CustomAdapter.viewHolder holder, final int position) {
+            holder.mName.setText(item_name.get(position));
+            holder.chkSelected.setChecked(item_checked.get(position));
+
+
+            holder.chkSelected.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    CheckBox cb = (CheckBox) v;
+                    item_checked.set(position, cb.isChecked());
+                    Log.v(TAG, "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked());
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return item_name == null ? 0 : item_name.size();
+        }
+
+
+        public class viewHolder extends RecyclerView.ViewHolder {
+            public TextView mName;
+            public CheckBox chkSelected;
+
+            public viewHolder(View itemView) {
+                super(itemView);
+                mName = (TextView) itemView.findViewById(R.id.item_name);
+                chkSelected = (CheckBox) itemView.findViewById(R.id.item_checkBox);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(AddScheduleActivity.this, "click: " + item_name.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
     }
 }

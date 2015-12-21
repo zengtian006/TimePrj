@@ -21,11 +21,17 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/picker_button"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="time picker"
-        android:layout_below="@+id/logout_button"
+        android:id="@+id/iV"
+        android:layout_above="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iV2"
+        android:layout_above="@+id/iV"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

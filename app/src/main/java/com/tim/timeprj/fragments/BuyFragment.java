@@ -2,13 +2,17 @@ package com.tim.timeprj.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.gms.test.datetimepicker.time.TimePickerDialog;
 import com.tim.timeprj.R;
@@ -20,7 +24,8 @@ import java.util.Calendar;
 
 public class BuyFragment extends Fragment {
 
-    Button logout_btn, picker_btn;
+    Button logout_btn;
+    ImageView iv, iv2;
     SessionManager session;
 
     public BuyFragment() {
@@ -54,32 +59,24 @@ public class BuyFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        picker_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        (TimePickerDialog.OnTimeSetListener) getActivity(),
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                );
-                tpd.vibrate(false);
-                tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-                tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
-            }
-        });
 
     }
 
     private void findView(View rootView) {
         logout_btn = (Button) rootView.findViewById(R.id.logout_button);
-        picker_btn = (Button) rootView.findViewById(R.id.picker_button);
+        iv = (ImageView) rootView.findViewById(R.id.iV);
+        iv2 = (ImageView) rootView.findViewById(R.id.iV2);
+
+        Drawable d = ContextCompat.getDrawable(getActivity(), R.drawable.tag_schedule);
+
+        iv2.setImageDrawable(d);
+//        iv2.setBackgroundColor(0xffffffff);
+        iv2.setColorFilter(0xffffffff, PorterDuff.Mode.SRC_IN);
+        iv.setImageDrawable(d);
+//        iv.setBackgroundColor(0xff1395ba);
+        iv.setColorFilter(0xff1395ba, PorterDuff.Mode.SRC_IN);
+
+
     }
 
 }

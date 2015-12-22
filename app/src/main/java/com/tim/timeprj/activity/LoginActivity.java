@@ -110,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             inputLayoutName.setErrorEnabled(false);
         }
-
         return true;
     }
 

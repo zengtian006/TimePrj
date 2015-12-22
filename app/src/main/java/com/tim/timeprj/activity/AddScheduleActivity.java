@@ -50,7 +50,6 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
     List<String> item_name;
     List<Boolean> item_checked;
     RecyclerView mRecyclerView;
-    Button confirm_item;
     LinearLayout layout_item_list;
 
 //    Button mButton;
@@ -127,14 +126,6 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
             }
         });
 
-        confirm_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(AddScheduleActivity.this, item_checked.toString(), Toast.LENGTH_SHORT).show();
-                layout_item_list.setVisibility(LinearLayout.GONE);
-            }
-        });
-
         edt_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,11 +145,20 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
     private void setView() {
         item_name = new ArrayList<String>();
         item_checked = new ArrayList<Boolean>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
             item_name.add(String.valueOf(i));
         }
         item_checked.add(false);
         item_checked.add(true);
+        item_checked.add(false);
+        item_checked.add(false);
+        item_checked.add(false);
+        item_checked.add(true);
+        item_checked.add(false);
+        item_checked.add(false);
+        item_checked.add(false);
+        item_checked.add(false);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new CustomAdapter(AddScheduleActivity.this));
 
@@ -183,7 +183,6 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         layout_address = (TextInputLayout) findViewById(R.id.input_layout_address);
         layout_item = (TextInputLayout) findViewById(R.id.input_layout_item);
         mRecyclerView = (RecyclerView) findViewById(R.id.item_recycler_view);
-        confirm_item = (Button) findViewById(R.id.btn_confirm);
         layout_item_list = (LinearLayout) findViewById(R.id.item_list);
     }
 
@@ -245,6 +244,16 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                     CheckBox cb = (CheckBox) v;
                     item_checked.set(position, cb.isChecked());
                     Log.v(TAG, "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked());
+                    String text = "";
+                    for (int i = 0; i < item_checked.size(); i++) {
+                        if (item_checked.get(i)) {
+                            text += item_name.get(i) + ",";
+                        }
+                    }
+                    if (!text.isEmpty()) {
+                        text = text.substring(0, text.length() - 1);
+                    }
+                    edt_item.setText(text);
                 }
             });
         }

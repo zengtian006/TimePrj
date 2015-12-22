@@ -297,7 +297,7 @@ public class ChineseAddressPicker extends LinearLayout
      */
     private void setUpData() {
         ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, mProvinceDatas);
-        adapter.setTextSize(20);
+        adapter.setTextSize(10);
         adapter.setTextColor(0xff666666);
 
         mViewProvince.setViewAdapter(adapter);
@@ -357,7 +357,7 @@ public class ChineseAddressPicker extends LinearLayout
             Log.w(LOG_TAG, mCurrentProviceName + "下的城市信息缺失。");
         }
         ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, cities);
-        adapter.setTextSize(20);
+        adapter.setTextSize(10);
         adapter.setTextColor(0xff666666);
         mViewCity.setViewAdapter(adapter);
         mViewCity.setCurrentItem(0);
@@ -379,7 +379,7 @@ public class ChineseAddressPicker extends LinearLayout
             Log.w(LOG_TAG, mCurrentCityName + "下的区域信息缺失。");
         }
         ArrayWheelAdapter adapter = new ArrayWheelAdapter(mContext, districts);
-        adapter.setTextSize(20);
+        adapter.setTextSize(10);
         adapter.setTextColor(0xff666666);
         mViewDistrict.setViewAdapter(adapter);
         mViewDistrict.setCurrentItem(0);

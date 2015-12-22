@@ -86,17 +86,17 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                 tpd.show(getFragmentManager(), "Timepickerdialog");
             }
         });
-
         mPicker.setOnAddressPickerListener(new ChineseAddressPicker.OnAddressPickerListener() {
             @Override
             public void onAddressPicked() {
                 String address = null;
                 if (mPicker.getProviceName() != null) {
-                    address = mPicker.getProviceName();
+//                    address = mPicker.getProviceName();
                     if (mPicker.getCityName() != null) {
-                        address += " - " + mPicker.getCityName();
+//                        address += " - " + mPicker.getCityName();
                         if (mPicker.getDistrictName() != null) {
-                            address += " - " + mPicker.getDistrictName();
+//                            address += " - " + mPicker.getDistrictName();
+                            address = mPicker.getDistrictName();
                         }
                     }
                 }

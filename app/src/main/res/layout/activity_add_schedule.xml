@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:actionBarVisible="true"
-            app:animationVisible="true"
+            app:animationVisible="false"
             app:defaultVisible="false"
             app:jsonDataEnable="true"
             app:sortByPronunciation="false"

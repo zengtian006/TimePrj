@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
+
             <RelativeLayout
                 android:id="@+id/rl_action_bar"
                 android:layout_width="match_parent"
@@ -81,23 +82,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/btn_confirm"
-                    android:textSize="@dimen/button_bar_item_text_size"
+                    android:text="@string/item_list_title"
                     android:textColor="@color/button_text_color"
-                    android:text="@string/tv_widget_title"/>
+                    android:textSize="@dimen/button_bar_item_text_size" />
 
                 <Button
                     android:id="@+id/btn_confirm"
+                    style="@style/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/buttonBarButtonStyle"
-                    android:textColor="@color/button_text_color"
-                    android:textSize="@dimen/button_bar_item_text_size"
-                    android:gravity="center"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/btn_confirm_text"/>
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:text="@string/btn_confirm_text"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="@dimen/button_bar_item_text_size" />
 
             </RelativeLayout>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/item_recycler_view"
                 android:layout_width="match_parent"

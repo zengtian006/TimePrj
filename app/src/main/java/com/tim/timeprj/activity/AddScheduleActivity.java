@@ -51,6 +51,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
     List<Boolean> item_checked;
     RecyclerView mRecyclerView;
     LinearLayout layout_item_list;
+    Button btn_confirm;
 
 //    Button mButton;
 
@@ -140,6 +141,23 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
 
             }
         });
+
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "";
+                for (int i = 0; i < item_checked.size(); i++) {
+                    if (item_checked.get(i)) {
+                        text += item_name.get(i) + ",";
+                    }
+                }
+                if (!text.isEmpty()) {
+                    text = text.substring(0, text.length() - 1);
+                }
+                edt_item.setText(text);
+                layout_item_list.setVisibility(LinearLayout.GONE);
+            }
+        });
     }
 
     private void setView() {
@@ -184,6 +202,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         layout_item = (TextInputLayout) findViewById(R.id.input_layout_item);
         mRecyclerView = (RecyclerView) findViewById(R.id.item_recycler_view);
         layout_item_list = (LinearLayout) findViewById(R.id.item_list);
+        btn_confirm = (Button) findViewById(R.id.btn_confirm);
     }
 
     @Override
@@ -244,16 +263,6 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
                     CheckBox cb = (CheckBox) v;
                     item_checked.set(position, cb.isChecked());
                     Log.v(TAG, "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked());
-                    String text = "";
-                    for (int i = 0; i < item_checked.size(); i++) {
-                        if (item_checked.get(i)) {
-                            text += item_name.get(i) + ",";
-                        }
-                    }
-                    if (!text.isEmpty()) {
-                        text = text.substring(0, text.length() - 1);
-                    }
-                    edt_item.setText(text);
                 }
             });
         }

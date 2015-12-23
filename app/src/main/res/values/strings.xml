@@ -46,6 +46,8 @@
     <string name="action_add_schedule">Add Schedule</string>
     <string name="action_donw">Done</string>
     <string name="time_range">Time range</string>
+    <string name="price">Price</string>
+    <string name="remark">Remark</string>
     <string name="item_list_title">Please choose your service item</string>
 
 </resources>

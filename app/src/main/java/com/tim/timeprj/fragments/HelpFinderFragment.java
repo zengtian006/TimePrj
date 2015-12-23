@@ -51,6 +51,12 @@ public class HelpFinderFragment extends Fragment {
         adapter.addFrag(new BuyFragment(), "BUY");
         adapter.addFrag(new ShareFragment(), "SHARE");
         adapter.addFrag(new SellFragment(), "SELL");
+        adapter.addFrag(new BuyFragment(), "BUY");
+        adapter.addFrag(new ShareFragment(), "SHARE");
+        adapter.addFrag(new SellFragment(), "SELL");
+        adapter.addFrag(new BuyFragment(), "BUY");
+        adapter.addFrag(new ShareFragment(), "SHARE");
+        adapter.addFrag(new SellFragment(), "SELL");
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
@@ -92,5 +98,11 @@ public class HelpFinderFragment extends Fragment {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(4).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(5).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(6).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(7).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(8).setIcon(tabIcons[2]);
     }
 }

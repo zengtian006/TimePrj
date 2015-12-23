@@ -164,7 +164,7 @@ public class AddScheduleActivity extends AppCompatActivity implements TimePicker
         item_name = new ArrayList<String>();
         item_checked = new ArrayList<Boolean>();
         for (int i = 0; i < 10; i++) {
-            item_name.add(String.valueOf(i));
+            item_name.add("Item " + String.valueOf(i));
         }
         item_checked.add(false);
         item_checked.add(true);
